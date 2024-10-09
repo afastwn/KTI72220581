@@ -112,7 +112,6 @@ namespace SecureWeb.Controllers
 
                 return RedirectToAction("Index", "Home");
 
-
             }
             catch (System.Exception ex)
             {
@@ -120,5 +119,43 @@ namespace SecureWeb.Controllers
             }
             return View(loginViewModel);
         }
+
+        public ActionResult ChangePassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult ChangePassword(ChangePwViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            var user = _user.GetUserByUsername(model.Username);
+            if (user == null)
+            {
+                ModelState.AddModelError("", "User not found");
+                return View(model);
+            }
+
+            // Verify old password
+            if (!BCrypt.Net.BCrypt.Verify(model.OldPassword, user.Password))
+            {
+                ModelState.AddModelError("", "Old password is incorrect");
+                return View(model);
+            }
+
+            // Update password
+            user.Password = BCrypt.Net.BCrypt.HashPassword(model.NewPassword);
+            _user.UpdatePassword(user);
+
+            ViewBag.Message = "Password changed successfully. Please login again.";
+            ViewBag.ShowLoginButton = true; // Tampilkan tombol login setelah password berhasil diubah
+
+            return View();
+        }
+
     }
 }
