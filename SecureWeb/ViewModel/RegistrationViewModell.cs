@@ -21,7 +21,13 @@ public class RegistrationViewModell
         {
             var validationResults = new List<ValidationResult>();
 
-            if (Password.Length < 12)
+            if (string.IsNullOrEmpty(Password))
+            {
+                validationResults.Add(new ValidationResult("Password is required", new[] { "Password" }));
+                return validationResults;
+            }
+
+            if (Password?.Length < 12)
             {
                 validationResults.Add(new ValidationResult("Password must be at least 12 characters long", new[] { "Password" }));
             }
