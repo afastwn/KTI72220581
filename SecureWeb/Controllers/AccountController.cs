@@ -36,15 +36,15 @@ namespace SecureWeb.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    if (!IsValidPassword(registrationViewModell.Password))
+                    if (!IsValidPassword(registrationViewModell.Password ?? string.Empty))
                     {
                         ModelState.AddModelError("Password", "- Min character 12.-Harus mengandung huruf besar, huruf kecil, dan angka");
                         return View(registrationViewModell); // Tetap di halaman registrasi jika validasi gagal
                     }
                     var user = new Models.User
                     {
-                        Username = registrationViewModell.Username,
-                        Password = registrationViewModell.Password,
+                        Username = registrationViewModell.Username ?? string.Empty,
+                        Password = registrationViewModell.Password ?? string.Empty,
                         Role = "Contributor"
                     };
                     _user.Registratiion(user);
@@ -60,8 +60,9 @@ namespace SecureWeb.Controllers
             return View(registrationViewModell);
         }
 
-        private bool IsValidPassword(string password)
+        private bool IsValidPassword(string? password)
         {
+            if (password == null) return false;
             if (password.Length < 12) return false;
             if (!password.Any(char.IsUpper)) return false;
             if (!password.Any(char.IsLower)) return false;
