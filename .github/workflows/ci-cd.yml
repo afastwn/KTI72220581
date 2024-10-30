@@ -1,0 +1,55 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Cache NuGet packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.nuget/packages
+          key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-nuget-
+
+      - name: Install Dependencies
+        run: dotnet restore
+        working-directory: SecureWeb
+
+      - name: Build SecureWeb
+        run: dotnet build --configuration Release --no-restore
+        working-directory: SecureWeb
+
+      - name: Run Tests
+        run: dotnet test --no-build --verbosity normal
+        working-directory: SecureWeb
+
+      - name: Check for vulnerabilities
+        run: dotnet list package --vulnerable --include-transitive
+        working-directory: SecureWeb
+
+      - name: Publish Artifacts
+        run: |
+          mkdir -p ../publish
+          dotnet publish SecureWeb/SecureWeb.csproj --configuration Release --no-build --output ../publish
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: webapp
+          path: ./publish
