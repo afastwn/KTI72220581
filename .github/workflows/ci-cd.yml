@@ -69,11 +69,11 @@ jobs:
         working-directory: SecureWeb
 
       - name: Publish
-        run: dotnet publish -c Release -o ./publish
+        run: dotnet publish SecureWeb.csproj -c Release
         working-directory: SecureWeb
             
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
           name: webapp
-          path: SecureWeb/publish/**
+          path: SecureWeb/bin/Release/net8.0/publish/**
