@@ -49,13 +49,13 @@ jobs:
         echo "Directory contents:"
         ls -R
         
-    - name: Run security scan
+    - name: Run Snyk security scan
       uses: snyk/actions/dotnet@master
       env:
         SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
       with:
         command: test
-        args: SecureWeb/SecureWeb.csproj
+        args: --file=SecureWeb/SecureWeb.csproj    # Menggunakan format yang benar untuk argumen file
 
     - name: Run OWASP ZAP Scan
       uses: zaproxy/action-full-scan@v0.9.0
