@@ -32,17 +32,17 @@ public class RegistrationViewModell
                 validationResults.Add(new ValidationResult("Password must be at least 12 characters long", new[] { "Password" }));
             }
 
-            if (!Password.Any(char.IsUpper))
+            if (!(Password?.Any(char.IsUpper) ?? false))
             {
                 validationResults.Add(new ValidationResult("Password must contain at least one uppercase letter", new[] { "Password" }));
             }
 
-            if (!Password.Any(char.IsLower))
+            if (!(Password?.Any(char.IsLower) ?? false))
             {
                 validationResults.Add(new ValidationResult("Password must contain at least one lowercase letter", new[] { "Password" }));
             }
 
-            if (!Password.Any(char.IsDigit))
+            if (!(Password?.Any(char.IsDigit) ?? false))
             {
                 validationResults.Add(new ValidationResult("Password must contain at least one number", new[] { "Password" }));
             }

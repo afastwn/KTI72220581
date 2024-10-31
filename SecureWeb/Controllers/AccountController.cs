@@ -9,6 +9,7 @@ using SecureWeb.ViewModel;
 
 namespace SecureWeb.Controllers
 {
+    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public class AccountController : Controller
     {
         private readonly IUser _user;
