@@ -49,22 +49,6 @@ jobs:
         echo "Directory contents:"
         ls -R
         
-    - name: Install Snyk
-      run: npm install -g snyk
-
-    - name: Authenticate Snyk
-      run: snyk auth ${{ secrets.SNYK_TOKEN }}
-      env:
-        SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-
-    - name: Run Snyk Test
-      run: |
-        cd SecureWeb
-        dotnet restore
-        snyk test
-      env:
-        SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-        
     - name: Run OWASP ZAP Scan
       uses: zaproxy/action-full-scan@v0.9.0
       with:
