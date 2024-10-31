@@ -13,9 +13,11 @@ namespace SecureWeb.Controllers
     public class AccountController : Controller
     {
         private readonly IUser _user;
-        public AccountController(IUser user)
+        private readonly ILogger<AccountController> _logger;
+        public AccountController(IUser user,ILogger<AccountController> logger)
         {
             _user = user;
+            _logger = logger;
         }
 
         // GET: AccountController
@@ -81,6 +83,7 @@ namespace SecureWeb.Controllers
         {
             try
             {
+                _logger.LogInformation("Login attempt for user: {Username}", loginViewModel.Username);
 
                 var user = new User
                 {
@@ -91,9 +94,11 @@ namespace SecureWeb.Controllers
                 var loginUser = _user.Login(user);
                 if (loginUser == null)
                 {
+                    _logger.LogWarning("Failed login attempt for user: {Username}", loginViewModel.Username);
                     ViewBag.error = "Invalid username or password";
                     return View(loginViewModel);
                 }
+                _logger.LogInformation("Successful login for user: {Username}", loginViewModel.Username);
 
                 var claims = new List<Claim>
                     {
@@ -117,6 +122,7 @@ namespace SecureWeb.Controllers
             }
             catch (System.Exception ex)
             {
+                _logger.LogError(ex, "Error during login process for user: {Username}", loginViewModel.Username);
                 ViewBag.Message = ex.Message;
             }
             return View(loginViewModel);
@@ -130,33 +136,42 @@ namespace SecureWeb.Controllers
         [HttpPost]
         public ActionResult ChangePassword(ChangePwViewModel model)
         {
-            if (!ModelState.IsValid)
+            try
             {
-                return View(model);
-            }
+                _logger.LogInformation("Password change attempt for user: {Username}", model.Username);
+                if (!ModelState.IsValid)
+                {
+                    return View(model);
+                }
 
-            var user = _user.GetUserByUsername(model.Username);
-            if (user == null)
+                var user = _user.GetUserByUsername(model.Username);
+                if (user == null)
+                {
+                    ModelState.AddModelError("", "User not found");
+                    return View(model);
+                }
+
+                // Verify old password
+                if (!BCrypt.Net.BCrypt.Verify(model.OldPassword, user.Password))
+                {
+                    ModelState.AddModelError("", "Old password is incorrect");
+                    return View(model);
+                }
+
+                // Update password
+                user.Password = BCrypt.Net.BCrypt.HashPassword(model.NewPassword);
+                _user.UpdatePassword(user);
+
+                _logger.LogInformation("Password successfully changed for user: {Username}", model.Username);
+                ViewBag.Message = "Password changed successfully. Please login again.";
+                ViewBag.ShowLoginButton = true; // Tampilkan tombol login setelah password berhasil diubah.
+            }
+            catch (Exception ex)
             {
-                ModelState.AddModelError("", "User not found");
-                return View(model);
+                _logger.LogError(ex, "Error during password change for user: {Username}", model.Username);
+                ModelState.AddModelError("", ex.Message);
             }
-
-            // Verify old password
-            if (!BCrypt.Net.BCrypt.Verify(model.OldPassword, user.Password))
-            {
-                ModelState.AddModelError("", "Old password is incorrect");
-                return View(model);
-            }
-
-            // Update password
-            user.Password = BCrypt.Net.BCrypt.HashPassword(model.NewPassword);
-            _user.UpdatePassword(user);
-
-            ViewBag.Message = "Password changed successfully. Please login again.";
-            ViewBag.ShowLoginButton = true; // Tampilkan tombol login setelah password berhasil diubah
-
-            return View();
+            return View(model);
         }
 
     }

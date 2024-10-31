@@ -1,0 +1,44 @@
+2024-10-31 23:24:17.273 +07:00 [INF] User profile is available. Using 'C:\Users\User\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-10-31 23:24:17.606 +07:00 [INF] Now listening on: http://localhost:5008
+2024-10-31 23:24:17.610 +07:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-10-31 23:24:17.610 +07:00 [INF] Hosting environment: Development
+2024-10-31 23:24:17.611 +07:00 [INF] Content root path: D:\SI S1 Andreas Setiawan\SEMESTER 5\Keamanan TI\KTI_72220581\SecureWeb
+2024-10-31 23:24:23.491 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5008/ - null null
+2024-10-31 23:24:23.617 +07:00 [WRN] Failed to determine the https port for redirect.
+2024-10-31 23:24:24.031 +07:00 [INF] Executing endpoint 'SecureWeb.Controllers.AccountController.Login (SecureWeb)'
+2024-10-31 23:24:24.400 +07:00 [INF] Route matched with {action = "Login", controller = "Account"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.ActionResult Login() on controller SecureWeb.Controllers.AccountController (SecureWeb).
+2024-10-31 23:24:25.675 +07:00 [INF] Executing ViewResult, running view Login.
+2024-10-31 23:24:27.156 +07:00 [INF] Executed ViewResult - view Login executed in 1489.2599ms.
+2024-10-31 23:24:27.172 +07:00 [INF] Executed action SecureWeb.Controllers.AccountController.Login (SecureWeb) in 2770.4318ms
+2024-10-31 23:24:27.175 +07:00 [INF] Executed endpoint 'SecureWeb.Controllers.AccountController.Login (SecureWeb)'
+2024-10-31 23:24:27.182 +07:00 [INF] HTTP GET / responded 200 in 3556.6355 ms
+2024-10-31 23:24:27.222 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5008/ - 200 null text/html; charset=utf-8 3735.1659ms
+2024-10-31 23:24:28.427 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5008/_framework/aspnetcore-browser-refresh.js - null null
+2024-10-31 23:24:28.431 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5008/_framework/aspnetcore-browser-refresh.js - 200 13732 application/javascript; charset=utf-8 3.9589ms
+2024-10-31 23:27:29.976 +07:00 [INF] Request starting HTTP/1.1 POST http://localhost:5008/ - application/x-www-form-urlencoded 252
+2024-10-31 23:27:29.979 +07:00 [INF] Executing endpoint 'SecureWeb.Controllers.AccountController.Login (SecureWeb)'
+2024-10-31 23:27:30.044 +07:00 [INF] Route matched with {action = "Login", controller = "Account"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult] Login(SecureWeb.ViewModel.LoginViewModel) on controller SecureWeb.Controllers.AccountController (SecureWeb).
+2024-10-31 23:27:30.152 +07:00 [INF] Login attempt for user: ander
+2024-10-31 23:27:33.356 +07:00 [INF] Executed DbCommand (31ms) [Parameters=[@__user_Username_0='?' (Size = 5)], CommandType='"Text"', CommandTimeout='30']
+SELECT "u"."Username", "u"."Password", "u"."Role"
+FROM "Users" AS "u"
+WHERE "u"."Username" = @__user_Username_0
+LIMIT 1
+2024-10-31 23:27:35.083 +07:00 [INF] Successful login for user: ander
+2024-10-31 23:27:35.153 +07:00 [INF] AuthenticationScheme: Cookies signed in.
+2024-10-31 23:27:35.160 +07:00 [INF] Executing RedirectResult, redirecting to /Home/Index.
+2024-10-31 23:27:35.161 +07:00 [INF] Executed action SecureWeb.Controllers.AccountController.Login (SecureWeb) in 5116.4049ms
+2024-10-31 23:27:35.162 +07:00 [INF] Executed endpoint 'SecureWeb.Controllers.AccountController.Login (SecureWeb)'
+2024-10-31 23:27:35.163 +07:00 [INF] HTTP POST / responded 302 in 5186.2259 ms
+2024-10-31 23:27:35.266 +07:00 [INF] Request finished HTTP/1.1 POST http://localhost:5008/ - 302 0 null 5290.0815ms
+2024-10-31 23:27:35.310 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5008/Home/Index - null null
+2024-10-31 23:27:35.316 +07:00 [INF] Executing endpoint 'SecureWeb.Controllers.HomeController.Index (SecureWeb)'
+2024-10-31 23:27:35.323 +07:00 [INF] Route matched with {action = "Index", controller = "Home"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Index() on controller SecureWeb.Controllers.HomeController (SecureWeb).
+2024-10-31 23:27:35.383 +07:00 [INF] Executing ViewResult, running view Index.
+2024-10-31 23:27:35.460 +07:00 [INF] Executed ViewResult - view Index executed in 79.2837ms.
+2024-10-31 23:27:35.461 +07:00 [INF] Executed action SecureWeb.Controllers.HomeController.Index (SecureWeb) in 137.3786ms
+2024-10-31 23:27:35.461 +07:00 [INF] Executed endpoint 'SecureWeb.Controllers.HomeController.Index (SecureWeb)'
+2024-10-31 23:27:35.461 +07:00 [INF] HTTP GET /Home/Index responded 200 in 151.1488 ms
+2024-10-31 23:27:35.462 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5008/Home/Index - 200 null text/html; charset=utf-8 151.8202ms
+2024-10-31 23:27:35.628 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5008/_framework/aspnetcore-browser-refresh.js - null null
+2024-10-31 23:27:35.634 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5008/_framework/aspnetcore-browser-refresh.js - 200 13732 application/javascript; charset=utf-8 5.3911ms

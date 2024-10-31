@@ -256,3 +256,12 @@ D:\SI S1 Andreas Setiawan\SEMESTER 5\Keamanan TI\KTI_72220581\SecureWeb\obj\Debu
 D:\SI S1 Andreas Setiawan\SEMESTER 5\Keamanan TI\KTI_72220581\SecureWeb\obj\Debug\net8.0\SecureWeb.pdb
 D:\SI S1 Andreas Setiawan\SEMESTER 5\Keamanan TI\KTI_72220581\SecureWeb\obj\Debug\net8.0\SecureWeb.genruntimeconfig.cache
 D:\SI S1 Andreas Setiawan\SEMESTER 5\Keamanan TI\KTI_72220581\SecureWeb\obj\Debug\net8.0\ref\SecureWeb.dll
+D:\SI S1 Andreas Setiawan\SEMESTER 5\Keamanan TI\KTI_72220581\SecureWeb\bin\Debug\net8.0\Serilog.dll
+D:\SI S1 Andreas Setiawan\SEMESTER 5\Keamanan TI\KTI_72220581\SecureWeb\bin\Debug\net8.0\Serilog.AspNetCore.dll
+D:\SI S1 Andreas Setiawan\SEMESTER 5\Keamanan TI\KTI_72220581\SecureWeb\bin\Debug\net8.0\Serilog.Extensions.Hosting.dll
+D:\SI S1 Andreas Setiawan\SEMESTER 5\Keamanan TI\KTI_72220581\SecureWeb\bin\Debug\net8.0\Serilog.Extensions.Logging.dll
+D:\SI S1 Andreas Setiawan\SEMESTER 5\Keamanan TI\KTI_72220581\SecureWeb\bin\Debug\net8.0\Serilog.Formatting.Compact.dll
+D:\SI S1 Andreas Setiawan\SEMESTER 5\Keamanan TI\KTI_72220581\SecureWeb\bin\Debug\net8.0\Serilog.Settings.Configuration.dll
+D:\SI S1 Andreas Setiawan\SEMESTER 5\Keamanan TI\KTI_72220581\SecureWeb\bin\Debug\net8.0\Serilog.Sinks.Console.dll
+D:\SI S1 Andreas Setiawan\SEMESTER 5\Keamanan TI\KTI_72220581\SecureWeb\bin\Debug\net8.0\Serilog.Sinks.Debug.dll
+D:\SI S1 Andreas Setiawan\SEMESTER 5\Keamanan TI\KTI_72220581\SecureWeb\bin\Debug\net8.0\Serilog.Sinks.File.dll
