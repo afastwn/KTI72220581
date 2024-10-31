@@ -53,12 +53,12 @@ jobs:
       - name: Backup
         if: success() && github.ref == 'refs/heads/main'
         run: |
-          if [ -f "./backup.sh" ]; then
+          if [ -f "./SecureWeb/backup.sh" ]; then
             echo "backup.sh found, executing..."
-            chmod +x ./backup.sh
-            ./backup.sh
+            chmod +x ./SecureWeb/backup.sh
+            ./SecureWeb/backup.sh
           else
-            echo "backup.sh not found in current directory"
+            echo "backup.sh not found in SecureWeb directory"
             echo "Searching for backup.sh:"
             find . -name backup.sh
             exit 1
