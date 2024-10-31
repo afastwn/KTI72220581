@@ -50,12 +50,12 @@ jobs:
         ls -R
         
     - name: Run Snyk security scan
-      working-directory: SecureWeb
       uses: snyk/actions/dotnet@master
       env:
         SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
       with:
         command: test
+        args: "--file=SecureWeb/SecureWeb.csproj --package-manager=nuget"
         
     - name: Run OWASP ZAP Scan
       uses: zaproxy/action-full-scan@v0.9.0
