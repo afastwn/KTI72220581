@@ -68,17 +68,12 @@ jobs:
         run: dotnet list package --vulnerable --include-transitive
         working-directory: SecureWeb
 
-      - name: Publish Artifacts
-        run: |
-          mkdir -p ../publish
-          dotnet publish SecureWeb/SecureWeb.csproj --configuration Release --no-build --output ../publish
-
       - name: Publish
-        run: dotnet publish -c Release -o publish
+        run: dotnet publish -c Release -o ./publish
         working-directory: SecureWeb
             
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
           name: webapp
-          path: ./publish
+          path: SecureWeb/publish/**
