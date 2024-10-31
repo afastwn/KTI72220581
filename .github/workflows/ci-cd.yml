@@ -48,12 +48,16 @@ jobs:
         echo "Current directory: $(pwd)"
         echo "Directory contents:"
         ls -R
-    - name: Install Snyk CLI
-      run: |
-        npm install -g snyk
-        snyk auth ${{ secrets.SNYK_TOKEN }}
         
-    - name: Change directory and run Snyk
+    - name: Install Snyk
+      run: npm install -g snyk
+
+    - name: Authenticate Snyk
+      run: snyk auth ${{ secrets.SNYK_TOKEN }}
+      env:
+        SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+
+    - name: Run Snyk Test
       run: |
         cd SecureWeb
         dotnet restore
