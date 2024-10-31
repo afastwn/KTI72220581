@@ -39,6 +39,12 @@ jobs:
         run: dotnet test --no-build --verbosity normal
         working-directory: SecureWeb
 
+      - name: Backup
+        if: success() && github.ref == 'refs/heads/main'
+        run: |
+          chmod +x ./backup.sh
+          ./backup.sh
+
       - name: Check for vulnerabilities
         run: dotnet list package --vulnerable --include-transitive
         working-directory: SecureWeb
