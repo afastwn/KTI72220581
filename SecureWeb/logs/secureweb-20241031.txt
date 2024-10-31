@@ -42,3 +42,5 @@ LIMIT 1
 2024-10-31 23:27:35.462 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5008/Home/Index - 200 null text/html; charset=utf-8 151.8202ms
 2024-10-31 23:27:35.628 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5008/_framework/aspnetcore-browser-refresh.js - null null
 2024-10-31 23:27:35.634 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5008/_framework/aspnetcore-browser-refresh.js - 200 13732 application/javascript; charset=utf-8 5.3911ms
+2024-10-31 23:47:32.094 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5008/_framework/aspnetcore-browser-refresh.js - null null
+2024-10-31 23:47:32.096 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5008/_framework/aspnetcore-browser-refresh.js - 200 13732 application/javascript; charset=utf-8 1.7485ms
