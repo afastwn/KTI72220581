@@ -3,6 +3,9 @@ using Microsoft.EntityFrameworkCore;
 using SecureWeb.Data;
 using Serilog;
 using Serilog.Events;
+using Microsoft.AspNetCore.Server.Kestrel.Core;
+using Microsoft.AspNetCore.RateLimiting;
+using System.Threading.RateLimiting;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -27,6 +30,27 @@ builder.Services.AddLogging(logging =>
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.Configure<KestrelServerOptions>(options =>
+{
+    options.Limits.MaxConcurrentConnections = 100;
+    options.Limits.MaxRequestBodySize = 10 * 1024 * 1024; // 10MB
+    options.Limits.KeepAliveTimeout = TimeSpan.FromMinutes(2);
+    options.Limits.RequestHeadersTimeout = TimeSpan.FromMinutes(1);
+});
+
+builder.Services.AddRateLimiter(options =>
+{
+    options.GlobalLimiter = PartitionedRateLimiter.Create<HttpContext, string>(context =>
+        RateLimitPartition.GetFixedWindowLimiter(
+            partitionKey: context.User.Identity?.Name ?? context.Request.Headers.Host.ToString(),
+            factory: partition => new FixedWindowRateLimiterOptions
+            {
+                AutoReplenishment = true,
+                PermitLimit = 100,
+                Window = TimeSpan.FromMinutes(1)
+            }));
+});
 
 builder.Services.AddDbContext<ApplicationDbContext> (options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
@@ -56,6 +80,8 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseSerilogRequestLogging();
+
+app.UseRateLimiter();
 
 app.Use(async (context, next) =>
 {
