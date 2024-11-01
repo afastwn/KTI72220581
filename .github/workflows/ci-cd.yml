@@ -39,27 +39,41 @@ jobs:
         run: dotnet test --no-build --verbosity normal
         working-directory: SecureWeb
 
+      - name: List directory contents
+        run: ls -la
+      
+      - name: Debug Information
+        run: |
+          echo "Current directory: $(pwd)"
+          echo "Directory contents:"
+          ls -la
+          echo "Git status:"
+          git status
+      
       - name: Backup
         if: success() && github.ref == 'refs/heads/main'
         run: |
-          chmod +x ./backup.sh
-          ./backup.sh
+          if [ -f "./SecureWeb/backup.sh" ]; then
+            echo "backup.sh found, executing..."
+            chmod +x ./SecureWeb/backup.sh
+            ./SecureWeb/backup.sh
+          else
+            echo "backup.sh not found in SecureWeb directory"
+            echo "Searching for backup.sh:"
+            find . -name backup.sh
+            exit 1
+          fi
 
       - name: Check for vulnerabilities
         run: dotnet list package --vulnerable --include-transitive
         working-directory: SecureWeb
 
-      - name: Publish Artifacts
-        run: |
-          mkdir -p ../publish
-          dotnet publish SecureWeb/SecureWeb.csproj --configuration Release --no-build --output ../publish
-
       - name: Publish
-        run: dotnet publish -c Release -o publish
+        run: dotnet publish SecureWeb.csproj -c Release
         working-directory: SecureWeb
             
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
           name: webapp
-          path: ./publish
+          path: SecureWeb/bin/Release/net8.0/publish/**
